@@ -1,6 +1,7 @@
+package D2;
 import java.util.Scanner;
 
-public class for_1926 {
+public class d2_1926 {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
