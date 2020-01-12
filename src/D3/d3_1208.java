@@ -32,15 +32,8 @@ public class d3_1208 {
 			while(height.get(high) == null || height.get(high).size() == 0)	high--;
 			while(height.get(low) == null || height.get(low).size() == 0)	low++;
 			if(high<=low) break;
+			
 			while(count>0) {
-				
-				/*
-				 * System.out.println("h: "+high+", l: "+low);
-				 * System.out.println(height.get(high)+":h l:"+height.get(low));
-				 * System.out.println(height.get(high-1)+":h l:"+height.get(low+1));
-				 */
-				 		
-				
 				ArrayList<Integer> curH = height.get(high);
 				ArrayList<Integer> curL = height.get(low);
 				ArrayList<Integer> nextH = height.get(high-1);
