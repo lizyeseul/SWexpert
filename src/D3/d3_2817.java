@@ -20,12 +20,26 @@ public class d3_2817 {
 			}
 			
 			//calculate
-			
+			boolean[] flag = new boolean[n];
+			result = sumNum(arr, k, 0, 0, 0);
 			
 			//output
 			System.out.print("#"+test_case);
 			System.out.println(" "+result);
 		}
 	}
-	
+	public static int sumNum(int arr[], int k, int count, int index, int total) {
+		if(index >= arr.length)
+			return count;
+		
+		if(total+arr[index] == k) {
+			count++;
+		}
+		
+		count = sumNum(arr, k, count, index+1, total);
+		if(total+arr[index] < k) {
+			count = sumNum(arr, k, count, index+1, total+arr[index]);
+		}
+		return count;
+	}
 }
