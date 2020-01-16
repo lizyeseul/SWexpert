@@ -2,7 +2,7 @@ package D3;
 
 import java.util.Scanner;
 
-public class d3_1215 {
+public class d3_1215_solving {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int T;
