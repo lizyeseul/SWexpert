@@ -10,77 +10,27 @@ public class d3_1216 {
 		
 		for(int test_case = 1; test_case <= T; test_case++) {
 			int result=0;
-            
+			
             //input
+			int m = 100;
 			int casee = sc.nextInt();
-            char[][] entire = new char[100][100];
-            for(int i=0; i<8; i++) {
+            char[][] entire = new char[m][m];
+            for(int i=0; i<m; i++) {
                 String temp = sc.next();
                 entire[i] = temp.toCharArray();
             }
              
             //calculate
-            for(int i=0; i<100; i++) {
-            	for(int j=0; j<100; j++) {
-                	//홀수인 경우
-                	int tempH1 = 1, tempV1 = 1;
-                	int l = j-1, r=j+1;
-                	while(l>=0 && r<100) {
-                		if(tempH1 > 0 && entire[i][l] != entire[i][r]) {
-                			if(tempH1 > result) {
-                        		result = tempH1;
-                        		System.out.println(result+": 홀, 가로"+i+" "+j);
-                        	}
-                			tempH1 = -1;
-                		} else if(tempH1 > 0 && entire[i][l] == entire[i][r]) {
-                			tempH1 += 2;
-                		}
-                		if(tempV1 > 0 && entire[l][i] != entire[r][i]) {
-                			if(tempV1 > result) {
-                        		result = tempV1;
-                        		System.out.println(result+": 홀, 세로"+i+" "+j);
-                        	}
-                			tempV1 = -1;
-                		} else if(tempV1 > 0 && entire[l][i] == entire[r][i]) {
-                			tempV1 += 2;
-                		}
-                		l--; r++;
-                	}
-                	//짝수인 경우
-            		if(j<99) {
-            			if(entire[i][j] == entire[i][j+1]) {
-            				int tempH2 = 2;
-                        	l = j-1; r=j+2;
-                        	while(l>=0 && r<100) {
-                        		if(entire[i][l] != entire[i][r]) {
-                        			break;
-                        		}
-                        		tempH2 += 2;
-                        		l--; r++;
-                        	}
-                        	if(tempH2 > result) {
-                        		result = tempH2;
-                        		System.out.println(result+": 짝, 가로"+i+" "+j);
-                        	}
-            			}
-            			if(entire[j][i] == entire[j+1][i]) {
-            				int tempV2 = 2;
-                        	l = j-1; r=j+2;
-                        	while(l>=0 && r<100) {
-                        		if(entire[l][i] != entire[r][i]) {
-                        			break;
-                        		}
-                        		tempV2 += 2;
-                        		l--; r++;
-                        	}
-                        	if(tempV2 > result) {
-                        		result = tempV2;
-                        		System.out.println(result+": 짝, 세로"+i+" "+j);
-                        	}
-            			}
-            		}
-                	
+            for(int i=0; i<m; i++) {                
+                String h = "", v = "";
+            	for(int j=0; j<m; j++) {
+            		h += entire[i][j];
+                	v += entire[j][i];
             	}
+            	int temp = max(solution(h), solution(v));
+                if(result < temp) {
+                	result = temp;
+                }
             }
              
             //output
@@ -88,4 +38,52 @@ public class d3_1216 {
             System.out.println(" "+result);
 		}
 	}
+	public static int max(int a, int b) {
+		if(a>b) return a;
+		else return b;
+	}
+	public static int solution(String s) {
+		String updateString = getUpdateString(s);
+		int answer =0 ;
+		int p[] = new int[updateString.length()];
+		int c=0,r=0; //center, rightBounday
+		
+		for(int i = 1; i< updateString.length() ; i++) {
+			//String 순회
+			int mirror = 2*c - i;
+			
+			if(i < r)
+				p[i] = Math.min(r-i, p[mirror]);
+			
+			int left = i-(1+p[i]);
+			int right = i+(1+p[i]);
+			while(right < updateString.length() && left >= 0 && updateString.charAt(left) == updateString.charAt(right) ) {
+				left--;
+				right++;
+				p[i]++; 
+			}
+			
+			if(i+ p[i] > r) {
+				//rightBoundary를 넘었을 경우
+				c = i; //center 갱신
+				r = i + p[i]; //right boundary 갱신
+				
+				answer = Math.max(p[i],answer);
+			}
+		}
+		
+		
+		return answer;
+		
+	}
+	private static String getUpdateString(String s) {
+		StringBuilder sb  =new StringBuilder(s);
+		for(int i =0 ; i< s.length() ; i++) {
+			sb.insert(i+(i+1), '#');
+		}
+		sb.insert(0, '#');
+		
+		return sb.toString();
+	}
+
 }
