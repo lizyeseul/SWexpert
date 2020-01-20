@@ -1,10 +1,14 @@
 package D3;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class d3_1216 {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+        BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=null;
 		int T=10;
 		//T=sc.nextInt();
 		
@@ -12,37 +16,31 @@ public class d3_1216 {
 			int result=0;
 			
             //input
-			int casee = sc.nextInt();
-            int[][] entire = new int[100][100];
-            for(int i=0; i<100; i++) {
-            	for(int j=0; j<100; j++) {
-            		entire[i][j] = sc.nextInt();
-            	}
-            }
-             
-            //calculate
+			br.readLine();
             int toRight = 0, toLeft = 0 ;
-            int[] ver = new int[100];
+        	int hor = 0;
+        	int[] ver = new int[100];
+        	
             for(int i=0; i<100; i++) {
-            	int hor = 0;
+            	st = new StringTokenizer(br.readLine());
+            	hor=0;
             	for(int j=0; j<100; j++) {
-            		hor += entire[i][j];
-            		ver[j] += entire[i][j];
-            		toRight += (i==j)?entire[i][j]:0;
-            		toLeft += (i==(99-j))?entire[i][j]:0;
+            		int temp = Integer.parseInt(st.nextToken());
+            		hor += temp;
+            		ver[j] += temp;
+            		toRight += (i==j)?temp:0;
+            		toLeft += (i==(99-j))?temp:0;
+            		if(i==99){
+                    	result = (result<ver[j])?ver[j]:result;
+        				result = (result<toRight)?toRight:result;
+        				result = (result<toLeft)?toLeft:result;
+                    }
             	}
             	result = (result<hor)?hor:result;
             }
-        	result = (result<toRight)?toRight:result;
-        	result = (result<toLeft)?toLeft:result;
-        	for(int i=0; i<100; i++) {
-            	result = (result<ver[i])?ver[i]:result;        		
-        	}
-            
             
             //output
-            System.out.print("#"+test_case);
-            System.out.println(" "+result);
+            System.out.println("#"+test_case+" "+result);
 		}
 	}
 }
