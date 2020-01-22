@@ -8,21 +8,6 @@ import java.util.StringTokenizer;
 public class d3_1860 {
 	public static void main(String[] args) throws IOException {
 		
-		
-
-		System.out.println("start");
-		int arr[] = {3,1,2,5,4};
-		arr = partition(arr, 0, 4);
-		
-		for(int k=0; k<5; k++) {
-			System.out.print(arr[k]+" ");
-		}
-		
-		
-		System.out.println("end");
-		
-		
-		/*
         BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st=null;
 		int T=1;
@@ -57,7 +42,7 @@ public class d3_1860 {
             else {
                 System.out.println("#"+test_case+" Impossible");
             }
-		}*/
+		}
 	}
 	public static int[] partition(int[] arr, int left, int right) {
 		if(left>=right) {
@@ -68,48 +53,35 @@ public class d3_1860 {
 		arr = partition(arr, middle+1, right);
 		arr = MergeSort(arr, left, middle, right);
 		
-
-		for(int k=0; k<5; k++) {
-			System.out.print(arr[k]+" ");
-		}
-		System.out.println();
-		
 		return arr;
 	}
 	public static int[] MergeSort(int[] arr, int left, int middle, int right) {
-		int[] temp = new int[right-left+1];
-	
+		int[] temp = arr.clone();
+		
 		int lIndex=left, rIndex=middle+1;
 		for(int i=left; i<=right; i++) {
-			//1 2 4   3 5
-			boolean max = (arr[lIndex]<arr[rIndex])?true:false;
-			if(max == true) {//left
-				int count=0;
-				while(arr[lIndex]<arr[rIndex] && (lIndex+count)<middle) {
-					count++;
+			if(rIndex >= 0 && lIndex >= 0) {
+				if(arr[lIndex]<arr[rIndex]) {//left
+					temp[i] = arr[lIndex];
+					if(lIndex == middle)
+						lIndex=-1;
+					else
+						lIndex++;
+				} else {//right
+					temp[i] = arr[rIndex];
+					if(rIndex == right)
+						rIndex=-1;
+					else
+						rIndex++;
 				}
-				for(int j=i; j<i+count; j++) {
-					temp[j] = arr[lIndex];
-					lIndex++;
-				}
-				i += count;
-			} else  {//left
-				int count=0;
-				while(arr[rIndex]<arr[lIndex] && (rIndex+count)<right) {
-					count++;
-				}
-				for(int j=i; j<i+count; j++) {
-					temp[j] = arr[rIndex];
-					rIndex++;
-				}
-				i += count;
+			} else if(rIndex == -1) {
+				temp[i] = arr[lIndex];
+				lIndex ++;
+			} else if(lIndex == -1) {
+				temp[i] = arr[rIndex];
+				rIndex ++;
 			}
 		}
-		
-		for(int i=left; i<=right; i++) {
-			arr[i] = temp[i-left];
-		}
-		
-		return arr;
+		return temp;
 	}
 }
