@@ -3,6 +3,8 @@ package D3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class d3_1860 {
@@ -21,18 +23,25 @@ public class d3_1860 {
 			int n = br.read();
 			int m = br.read();
 			int k = br.read();
-        	int[] people = new int[n];
+        	ArrayList<Integer> people = new ArrayList<>();
         	
             for(int i=0; i<n; i++) {
-            	people[i] = br.read();
-            	if(people[i] < k) {
+            	people.add(br.read());
+            	if(people.get(i) < k) {
             		flag = false;
             	}
             }
             
             //calculation
             if(flag == true) {
-            	
+            	Collections.sort(people);
+            	int curTime = 0; int bread = 0;
+            	while(curTime < people.get(people.size()-1)) {
+            		curTime++;
+            		if(curTime%m == 0)
+            			bread += k;
+            		if()
+            	}
             }
             
             //output
@@ -44,15 +53,14 @@ public class d3_1860 {
             }
 		}
 	}
+	/*
 	public static int[] partition(int[] arr, int left, int right) {
-		if(left>=right) {
+		if(left>=right)
 			return arr;
-		}
 		int middle = (right+left)/2;
 		arr = partition(arr, left, middle);
 		arr = partition(arr, middle+1, right);
 		arr = MergeSort(arr, left, middle, right);
-		
 		return arr;
 	}
 	public static int[] MergeSort(int[] arr, int left, int middle, int right) {
@@ -63,16 +71,12 @@ public class d3_1860 {
 			if(rIndex >= 0 && lIndex >= 0) {
 				if(arr[lIndex]<arr[rIndex]) {//left
 					temp[i] = arr[lIndex];
-					if(lIndex == middle)
-						lIndex=-1;
-					else
-						lIndex++;
+					if(lIndex == middle)	lIndex=-1;
+					else					lIndex++;
 				} else {//right
 					temp[i] = arr[rIndex];
-					if(rIndex == right)
-						rIndex=-1;
-					else
-						rIndex++;
+					if(rIndex == right)		rIndex=-1;
+					else					rIndex++;
 				}
 			} else if(rIndex == -1) {
 				temp[i] = arr[lIndex];
@@ -83,5 +87,5 @@ public class d3_1860 {
 			}
 		}
 		return temp;
-	}
+	}*/
 }
