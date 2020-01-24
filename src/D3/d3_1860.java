@@ -1,6 +1,7 @@
 package D3;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -9,48 +10,44 @@ import java.util.StringTokenizer;
 
 public class d3_1860 {
 	public static void main(String[] args) throws IOException {
-		
-        BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\ys0star\\eclipse-workspace\\SWexpert\\src\\D3/input2.txt"));
+        //BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st=null;
-		int T=1;
-		//T=br.read();
+		int T;
+		T=Integer.parseInt(br.readLine());
 		
 		for(int test_case = 1; test_case <= T; test_case++) {
-			int result=0;
+			//int result=0;
 			boolean flag = true;
 			
             //input
-			int n = br.read();
-			int m = br.read();
-			int k = br.read();
+			st = new StringTokenizer(br.readLine());
+			int n = Integer.parseInt(st.nextToken());
+			int m = Integer.parseInt(st.nextToken());
+			int k = Integer.parseInt(st.nextToken());
         	ArrayList<Integer> people = new ArrayList<>();
-        	
+
+			st = new StringTokenizer(br.readLine());
             for(int i=0; i<n; i++) {
-            	people.add(br.read());
-            	if(people.get(i) < k) {
+            	people.add(Integer.parseInt(st.nextToken()));
+            }
+            
+            Collections.sort(people);
+            int index = 0;
+            while(index<people.size()) {
+            	int time = people.get(index);
+            	int bread = (time/m)*k - (index+1);
+            	if(bread<0) {
             		flag = false;
+            		break;
             	}
+            	index++;
             }
-            
-            //calculation
-            if(flag == true) {
-            	Collections.sort(people);
-            	int curTime = 0; int bread = 0;
-            	while(curTime < people.get(people.size()-1)) {
-            		curTime++;
-            		if(curTime%m == 0)
-            			bread += k;
-            		if()
-            	}
-            }
-            
             //output
-            if(flag == true) {
+            if(flag == true)
                 System.out.println("#"+test_case+" Possible");
-            }
-            else {
+            else
                 System.out.println("#"+test_case+" Impossible");
-            }
 		}
 	}
 	/*
