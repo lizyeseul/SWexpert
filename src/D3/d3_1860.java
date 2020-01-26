@@ -16,11 +16,6 @@ public class d3_1860 {
 		int T;
 		T=Integer.parseInt(br.readLine());
 		
-		int[][] grape = {{1,1,1},{2,1,2},{3,2,1},{4,1,3},
-				{5,2,2},{6,3,1},{7,1,4},{8,2,3},{9,3,2},
-				{10,4,1},{12,2,4},{13,3,3},{14,4,2},
-				{18,3,4},{19,4,3},{25,4,4}};
-		
 		for(int test_case = 1; test_case <= T; test_case++) {
 			int result=0;
 			
@@ -29,48 +24,25 @@ public class d3_1860 {
 			int p = Integer.parseInt(st.nextToken());
 			int q = Integer.parseInt(st.nextToken());
             
-			//calculate
-			
             //output
-            if(flag == true)
-                System.out.println("#"+test_case+" Possible");
-            else
-                System.out.println("#"+test_case+" Impossible");
+			System.out.println("#"+test_case+" "+star(p,q));
 		}
 	}
-	/*
-	public static int[] partition(int[] arr, int left, int right) {
-		if(left>=right)
-			return arr;
-		int middle = (right+left)/2;
-		arr = partition(arr, left, middle);
-		arr = partition(arr, middle+1, right);
-		arr = MergeSort(arr, left, middle, right);
-		return arr;
+	public static int star(int a, int b) {
+		int[] p1 = amp(a);
+		int[] p2 = amp(b);
+		return sharp(p1[0]+p2[0], p1[1]+p2[1]);
 	}
-	public static int[] MergeSort(int[] arr, int left, int middle, int right) {
-		int[] temp = arr.clone();
-		
-		int lIndex=left, rIndex=middle+1;
-		for(int i=left; i<=right; i++) {
-			if(rIndex >= 0 && lIndex >= 0) {
-				if(arr[lIndex]<arr[rIndex]) {//left
-					temp[i] = arr[lIndex];
-					if(lIndex == middle)	lIndex=-1;
-					else					lIndex++;
-				} else {//right
-					temp[i] = arr[rIndex];
-					if(rIndex == right)		rIndex=-1;
-					else					rIndex++;
-				}
-			} else if(rIndex == -1) {
-				temp[i] = arr[lIndex];
-				lIndex ++;
-			} else if(lIndex == -1) {
-				temp[i] = arr[rIndex];
-				rIndex ++;
-			}
+	public static int[] amp(int n) {
+		int sum, s= 0;
+		for(sum = 2; sum<=30000; sum++) {
+			s = sum*(sum-1)/2;
+			if(n <= s)	break;
 		}
-		return temp;
-	}*/
+		int y = s-n+1;
+		return new int[]{sum-y, y};
+	}
+	public static int sharp(int x, int y) {
+		return ((x+y)*(x+y-1)/2)+1-y;
+	}
 }
