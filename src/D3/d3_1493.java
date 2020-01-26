@@ -8,29 +8,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-public class d3_1860 {
+public class d3_1493 {
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\ys0star\\eclipse-workspace\\SWexpert\\src\\D3/input.txt"));
+		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\ys0star\\eclipse-workspace\\SWexpert\\src\\D3/input2.txt"));
         //BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st=null;
 		int T;
 		T=Integer.parseInt(br.readLine());
 		
-		int[][] grape = {{1,1,1},{2,1,2},{3,2,1},{4,1,3},
-				{5,2,2},{6,3,1},{7,1,4},{8,2,3},{9,3,2},
-				{10,4,1},{12,2,4},{13,3,3},{14,4,2},
-				{18,3,4},{19,4,3},{25,4,4}};
-		
 		for(int test_case = 1; test_case <= T; test_case++) {
-			int result=0;
+			//int result=0;
+			boolean flag = true;
 			
             //input
 			st = new StringTokenizer(br.readLine());
-			int p = Integer.parseInt(st.nextToken());
-			int q = Integer.parseInt(st.nextToken());
+			int n = Integer.parseInt(st.nextToken());
+			int m = Integer.parseInt(st.nextToken());
+			int k = Integer.parseInt(st.nextToken());
+        	ArrayList<Integer> people = new ArrayList<>();
+
+			st = new StringTokenizer(br.readLine());
+            for(int i=0; i<n; i++) {
+            	people.add(Integer.parseInt(st.nextToken()));
+            }
             
-			//calculate
-			
+            Collections.sort(people);
+            int index = 0;
+            while(index<people.size()) {
+            	int time = people.get(index);
+            	int bread = (time/m)*k - (index+1);
+            	if(bread<0) {
+            		flag = false;
+            		break;
+            	}
+            	index++;
+            }
             //output
             if(flag == true)
                 System.out.println("#"+test_case+" Possible");
