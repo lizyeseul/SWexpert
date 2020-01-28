@@ -34,6 +34,8 @@ public class d4_2819 {
 	}
 	public static void count(String line, int x, int y) {
 		if(line.length() == 7) {
+			if(!map.contains(line))
+				System.out.println(line);
 			map.add(line);
 			return;
 		}
